@@ -5,17 +5,17 @@
 
 # 변수 임의 입력하여 정렬 해보고 -> 함수화 -> 정답에 맞게 코딩
 
-T = int(input())
-
-for case in range(T):
-    num, k = map(int, input().split())
-
-    # 입력값 리스트화
-    num_list = []
-    while num // 10 != 0:
-        num_list = [num%10] + num_list
-        num = num // 10
-    num_list = [num%10] + num_list
+# T = int(input())
+#
+# for case in range(T):
+#     num, k = map(int, input().split())
+#
+#     # 입력값 리스트화
+#     num_list = []
+#     while num // 10 != 0:
+#         num_list = [num%10] + num_list
+#         num = num // 10
+#     num_list = [num%10] + num_list
 
 """
 [ 3 2 8 8 8 ] 의 경우
@@ -46,3 +46,30 @@ for case in range(T):
   -> [8 8 1 3 2 8]
   -> [8 8 8 3 2 1]
 """
+
+T = int(input())
+
+
+def dfs(num, n, cnt):
+    global ans
+    if n == cnt:
+        num = int(''.join(list(map(str, num))))
+        if num > ans:
+            ans = num
+        return
+
+    for i in range(len(num)):
+        for j in range(i + 1, len(num)):
+            num[i], num[j] = num[j], num[i]
+            dfs(num, n, cnt + 1)
+            num[i], num[j] = num[j], num[i]
+
+
+for tc in range(1, T + 1):
+    num, n = input().split()
+    ans = 0
+    num = list(num)
+    n = int(n)
+
+dfs(num, n, 0)
+print(f'#{tc} {ans}')
