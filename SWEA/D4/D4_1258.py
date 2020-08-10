@@ -78,4 +78,3 @@ for t in range(len(result)):
     for t1 in range(len(result[t])):
         print(result[t][t1], end=' ')
     print()
-
